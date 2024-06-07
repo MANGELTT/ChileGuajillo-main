@@ -27,25 +27,26 @@ class ProfileController extends Controller
 
     public function create(Request $request){
         $request->validate([
-            'omited' => 'required'
+            'photo' => 'nullable|string',
+            'sex' => 'nullable|string',
+            'birthdate' => 'nullable|date',
+            'omited' => 'required|boolean'
         ]);
 
-        //se crea un nuevo perfil
+        // Crear un nuevo perfil
         $profile = new Profile();
 
-        if($request->omited == "0") {
+        if($request->omited) {
             $profile->photo = "";
             $profile->sex = "";
             $profile->birthdate = "";
-            $profile->user_id = Auth::user()->id;
-            $profile->save();
-            return response($profile, Response::HTTP_CREATED);
+        } else {
+            $profile->photo = $request->photo;
+            $profile->sex = $request->sex;
+            $profile->birthdate = $request->birthdate;
         }
-        
-        $profile->photo = $request->photo;
+
         $profile->user_id = Auth::user()->id;
-        $profile->sex = $request->sex;
-        $profile->birthdate = $request->birthdate;
         $profile->save();
 
         return response($profile, Response::HTTP_CREATED);

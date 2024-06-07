@@ -12,6 +12,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum', ['except' => ['Register', 'Login']]);
+    }
+
     //index
     public function Index(){
         return response(["message" => "GET API Rest - Up"]);
@@ -31,6 +36,14 @@ class AuthController extends Controller
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->save();
+
+
+        // Crear el perfil del usuario
+        $profile = new Profile();
+        $profile->user_id = $user->id;
+        // Inicializa otros campos del perfil si es necesario
+        $profile->save();
+
         //respuesta del servidor
         return response($user, Response::HTTP_CREATED);
     }

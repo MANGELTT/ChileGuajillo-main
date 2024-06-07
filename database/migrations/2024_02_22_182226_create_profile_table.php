@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
-            $table->longText('photo');
-            $table->date('birthdate');
-            $table->char('sex');
+            $table->longText('photo')->nullable();
+            $table->date('birthdate')->nullable();
+            $table->char('sex')->nullable();
             $table->enum('typeProfile',[1,2])->default(1);
             $table->timestamps();
 
