@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\DirectorController;
 use App\Http\Controllers\Api\GenderController;
 use App\Http\Controllers\Api\MovieController;
 use App\Http\Controllers\Api\ProfileController as ApiProfileController;
+use App\Http\Controllers\Api\ReviewController;
 use Illuminate\Support\Facades\Route;
 
 //Route principal
@@ -72,6 +73,9 @@ Route::group(['middleware' => ['auth:sanctum']], function (){
     Route::delete('/clasification/{id}', [ClasificationController::class,'destroy']);
 
 });
+
+    //Ruta Reseñas
+    Route::post('/reviews',[ReviewController::class,'store']);
 
     //Ruta para obtener los directores
     Route::get('/director', [DirectorController::class, 'getDirectors']);
