@@ -70,10 +70,10 @@ Route::group(['middleware' => ['auth:sanctum']], function (){
     //Eliminar
     Route::delete('/clasification/{id}', [ClasificationController::class,'destroy']);
 
-});
-
     //Ruta Reseñas
     Route::post('/reviews',[ReviewController::class,'store']);
+
+});
 
     //Ruta para obtener los directores
     Route::get('/director', [DirectorController::class, 'getDirectors']);
@@ -81,11 +81,19 @@ Route::group(['middleware' => ['auth:sanctum']], function (){
 
     //Ruta para obtener las Clasificaciones
     Route::get('/clasification', [ClasificationController::class, 'getClas']);
+
     //Route Obtener Todos los recursos
     Route::get('/movie', [MovieController::class,'index']);
 
     //Route Obtener un recurso en especifico
     Route::get('/movie/{id}', [MovieController::class,'show']);
+
+    //Route Obtener review especifica
+    Route::get('/review/{id}', [ReviewController::class, 'show']);
+    //Editar
+    Route::put('/review/{id}', [ReviewController::class, 'edit']);
+    //Eliminar
+    Route::delete('/review/{id}', [ReviewController::class, 'destroy']);
 
 
     
