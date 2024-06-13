@@ -24,19 +24,6 @@ class User extends Authenticatable
         'password',
     ];
 
-    // protected static function booted()
-    // {
-    //     static::created(function ($user) {
-    //         Profile::create([
-    //             'user_id' => $user->id,
-    //             'photo' => '',
-    //             'birthdate' => null,
-    //             'sex' => '',
-    //             'typeProfile' => 1,
-    //         ]);
-    //     });
-    // }
-
     /**
      * The attributes that should be hidden for serialization.
      *

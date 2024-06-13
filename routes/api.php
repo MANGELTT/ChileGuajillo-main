@@ -42,8 +42,6 @@ Route::group(['middleware' => ['auth:sanctum']], function (){
     Route::put('/profile/{id}', [ApiProfileController::class,'edit']);
 
 
-    //Route Obtener un recurso en especifico
-    Route::get('/movie/{id}', [MovieController::class,'show']);
     //Route Crear un nuevo recurso 
     Route::post('/movie', [MovieController::class,'create']);
     //Route Editar un recurso en especifico
@@ -86,6 +84,8 @@ Route::group(['middleware' => ['auth:sanctum']], function (){
     //Route Obtener Todos los recursos
     Route::get('/movie', [MovieController::class,'index']);
 
+    //Route Obtener un recurso en especifico
+    Route::get('/movie/{id}', [MovieController::class,'show']);
 
 
     

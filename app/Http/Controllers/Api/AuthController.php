@@ -41,7 +41,6 @@ class AuthController extends Controller
         // Crear el perfil del usuario
         $profile = new Profile();
         $profile->user_id = $user->id;
-        // Inicializa otros campos del perfil si es necesario
         $profile->save();
 
         //respuesta del servidor

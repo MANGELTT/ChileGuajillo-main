@@ -21,7 +21,7 @@ class DirectorController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'sex' => 'required|string|max:1',
-            'age' => 'required|integer|min:0'
+            'age' => 'required|date'
         ]);
 
         // Crear un nuevo director

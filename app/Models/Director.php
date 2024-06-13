@@ -15,11 +15,11 @@ class Director extends Model
         'age'
     ];
 
-    // Relación uno a muchos con la entidad Movie
-    // public function movies()
-    // {
-    //     return $this->hasMany(Movie::class);
-    // }
+    //Relación uno a muchos con la entidad Movie
+    public function movies()
+    {
+        return $this->hasMany(Movie::class);
+    }
 
     protected $hidden = [];
 }

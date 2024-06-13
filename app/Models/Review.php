@@ -11,7 +11,7 @@ class Review extends Model
     protected $collection = 'review';
 
     protected $fillable = [
-        'movie_id', 'profile_id', 'rating', 'comment',
+        'movie_id', 'profile_id', 'rating', 'comment',  
     ];
 
     public function profile()
