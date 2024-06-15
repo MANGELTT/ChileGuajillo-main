@@ -77,7 +77,7 @@ Route::group(['middleware' => ['auth:sanctum']], function (){
 
     //Ruta para obtener los directores
     Route::get('/director', [DirectorController::class, 'getDirectors']);
-    Route::get('/director/search', [DirectorController::class, 'search']); //SEARCH DE DIRECTOR
+    Route::get('/director/search', [DirectorController::class, 'search']); //Julian arregla el buscador porfas
 
     //Ruta para obtener las Clasificaciones
     Route::get('/clasification', [ClasificationController::class, 'getClas']);
