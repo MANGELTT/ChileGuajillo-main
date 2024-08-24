@@ -122,4 +122,12 @@ class MovieController extends Controller
         }
         return response(["message" => "No estás autorizado para realizar esta acción"], Response::HTTP_FORBIDDEN);
     }
+
+    //Metodo Busqueda pelis
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $movies = Movie::search($query)->get();
+        return response()->json($movies);
+    }
 }

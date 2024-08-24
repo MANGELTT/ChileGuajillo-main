@@ -78,6 +78,7 @@ Route::group(['middleware' => ['auth:sanctum']], function (){
     //Ruta para obtener los directores
     Route::get('/director', [DirectorController::class, 'getDirectors']);
     Route::get('/director/search', [DirectorController::class, 'search']); //Julian arregla el buscador porfas
+                                                                            //PD: Nunca lo arreglo :,(
 
     // //Route para obtener la información del usuario en sesión
     // Route::get('/user-profile',[AuthController::class, 'GetUserProfile']);
@@ -87,6 +88,9 @@ Route::group(['middleware' => ['auth:sanctum']], function (){
 
     //Route Obtener Todos los recursos
     Route::get('/movie', [MovieController::class,'index']);
+
+    //Route buscar por peli por nombre
+    Route::get('/movies/search', [MovieController::class, 'search']);
 
     //Route Obtener un recurso en especifico
     Route::get('/movie/{id}', [MovieController::class,'show']);
