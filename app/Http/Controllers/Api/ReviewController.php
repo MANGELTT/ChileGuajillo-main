@@ -5,9 +5,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Movie;
 use App\Models\Profile;
 use App\Models\Review;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
+
 
 
 
@@ -84,6 +86,44 @@ class ReviewController extends Controller
 
         return response()->json(['data' => $review], Response::HTTP_OK);
     }
+
+    public function getReviewsByMovie($movie_id)
+{
+    try {
+        if (!is_numeric($movie_id)) {
+            return response()->json(['message' => 'ID de película inválido'], Response::HTTP_BAD_REQUEST);
+        }
+
+        // Obtener las reseñas sin `with` para evitar el error
+        $reviews = Review::where('movie_id', (string)$movie_id)->get();
+
+        // Cargar manualmente el perfil y el nombre del usuario
+        foreach ($reviews as $review) {
+            $profile = Profile::find($review->profile_id);
+            if ($profile) {
+                $user = User::find($profile->user_id);
+                if ($user) {
+                    $review->user_name = $user->name; // Agregar el nombre del usuario a la reseña
+                } else {
+                    $review->user_name = null; // Si el usuario no existe
+                }
+            } else {
+                $review->user_name = null; // Si el perfil no existe
+            }
+        }
+
+        if ($reviews->isEmpty()) {
+            return response()->json(['message' => 'No se encontraron reseñas para esta película'], Response::HTTP_NOT_FOUND);
+        }
+
+        return response()->json(['data' => $reviews], Response::HTTP_OK);
+    } catch (\Exception $e) {
+        logger()->error("Error al obtener reseñas: " . $e->getMessage());
+        return response()->json(['message' => 'Error interno del servidor'], Response::HTTP_INTERNAL_SERVER_ERROR);
+    }
+}
+
+
 
     public function destroy($id)
     {

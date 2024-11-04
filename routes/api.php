@@ -97,10 +97,13 @@ Route::group(['middleware' => ['auth:sanctum']], function (){
 
     //Route Obtener review especifica
     Route::get('/review/{id}', [ReviewController::class, 'show']);
+    //Ruta para obtener todas las reseñas de una pelicula
+    Route::get('movie/{movie_id}/reviews', [ReviewController::class, 'getReviewsByMovie']);
     //Editar
     Route::put('/review/{id}', [ReviewController::class, 'edit']);
     //Eliminar
     Route::delete('/review/{id}', [ReviewController::class, 'destroy']);
+
 
 
     
