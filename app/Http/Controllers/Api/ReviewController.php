@@ -24,27 +24,35 @@ class ReviewController extends Controller
             'comment' => 'nullable|string',
         ]);
 
-        //  // Verificar si el profile_id existe en la base de datos MySQL
-         $profile = Profile::find($request->profile_id);
-         if (!$profile) {
-             return response()->json(['message' => 'Perfil no encontrado'], Response::HTTP_NOT_FOUND);
-         }
+        // Verificar si el profile_id existe en la base de datos MySQL
+        $profile = Profile::find($request->profile_id);
+        if (!$profile) {
+            return response()->json(['message' => 'Perfil no encontrado'], Response::HTTP_NOT_FOUND);
+        }
 
-         $movie = Movie::find($request->profile_id);
-         if (!$movie) {
-             return response()->json(['message' => 'Pelicula no encontrada'], Response::HTTP_NOT_FOUND);
-         }
+        // Verificar si la película existe
+        $movie = Movie::find($request->movie_id);
+        if (!$movie) {
+            return response()->json(['message' => 'Pelicula no encontrada'], Response::HTTP_NOT_FOUND);
+        }
 
+        // Verificar si el perfil ya ha reseñado esta película
+        $existingReview = Review::where('movie_id', $request->movie_id)
+                                ->where('profile_id', $request->profile_id)
+                                ->first();
+        if ($existingReview) {
+            return response()->json(['message' => 'El perfil ya ha reseñado esta película'], Response::HTTP_CONFLICT);
+        }
 
+        // Crear la nueva reseña
         $review = new Review();
-        $review->review_id = Review::getNextSequenceValue('review_id');
         $review->movie_id = $request->movie_id;
         $review->profile_id = $request->profile_id;
         $review->rating = $request->rating;
         $review->comment = $request->comment;
         $review->save();
 
-        return response()->json(['data' => $review], Response::HTTP_CREATED);
+        return response()->json(['data' => $review], Response::HTTP_OK);
     }
 
         public function show($id)
