@@ -73,6 +73,10 @@ class ReviewController extends Controller
 
     public function edit(Request $request, $id)
     {
+        if (!is_numeric($id)) {
+            return response()->json(['message' => 'ID inválido'], Response::HTTP_BAD_REQUEST);
+        }
+        
         $request->validate([
             'movie_id' => 'required|string',
             'profile_id' => 'required|exists:profiles,id',
